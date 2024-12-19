@@ -23,20 +23,20 @@ def invfreqz(h, w, nb, na, wt=None, gauss=False, real=True, maxiter=30, tol=0.01
         raise ValueError('H and W should be of equal length.')
     nb = nb + 1
     nm = max(nb-1, na)
-    OM_a = np.mat(np.arange(0, nm+1))
-    OM_m = OM_a.T * np.mat(w)
+    OM_a = np.asmatrix(np.arange(0, nm+1))
+    OM_m = OM_a.T * np.asmatrix(w)
     OM = np.exp(-1j * OM_m)
     Dva_a = np.transpose(OM[1:(na+1)])
-    h_t = np.transpose(np.mat(h))
-    Dva_b = h_t * np.mat(np.ones(na))
+    h_t = np.transpose(np.asmatrix(h))
+    Dva_b = h_t * np.asmatrix(np.ones(na))
     Dva = np.multiply(Dva_a, Dva_b)
     Dvb = -np.transpose(OM[0:nb])
     D_a = np.hstack((Dva, Dvb))
     if wt is None:
-        wf = np.transpose(np.mat(np.ones_like(h)))
+        wf = np.transpose(np.asmatrix(np.ones_like(h)))
     else:
         wf = np.sqrt(np.transpose(np.mat(wt)))
-    D_b = wf * np.mat(np.ones((1, na+nb)))
+    D_b = wf * np.asmatrix(np.ones((1, na+nb)))
     D = np.multiply(D_a, D_b)
     if real:
         R = np.real(D.H * D)
